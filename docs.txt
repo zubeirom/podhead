@@ -1,0 +1,17 @@
+Software Developement Lifecycle:
+
+Design:
+Lean on Google Podcast Design or Vercel (formerly Zeit)
+
+Database:
+MongoDB and Atlas as hosting service
+
+Search Engine:
+Use elasticsearch as full text search engine
+
+API:
+Use Nest.js with Typescript
+
+Blob Storage:
+Google Cloud Storage
+
