@@ -15,3 +15,19 @@ Use Nest.js with Typescript
 Blob Storage:
 Google Cloud Storage
 
+Client routes
+
+
+/channels = List of channels
+
+/new = Add new Channel
+
+/${channelusername} = Channel
+
+/${channelusername}/new = New Episode
+
+/${channelusername}/feed.xml = xml path
+
+/${channelusername}/epid = Episode - edit or delete
+
+Design highly inspired by google Podcast
