@@ -17,24 +17,31 @@ Google Cloud Storage
 
 Client routes
 
-
 /channels = List of channels
 
 /new = Add new Channel
 
-/${channelusername} = Channel
+/channels/${channelId} = Channel
 
-/${channelusername}/new = New Episode
+/channels/${channelId}/new = New Episode
 
-/${channelusername}/feed.xml = xml path
+/channels/${channelId}/feed.xml = xml path
 
-/${channelusername}/epid = Episode - edit or delete
+/episodes/${episodeId} = Episode - Edit, Delete
 
 Design highly inspired by google Podcast
 
+Features:
+     - Create channel
+     - Create episode for channel
+     - New Channel Importer which reads rss feed and creates channel and creates episodes
+     - View rss feed
+
 Model:
 
-     Channel Model:
+     Channel:
+         channelId: string,
+         accountId: int,
          channelImage: string,
          channelName: string,
          channelDescription: string,
@@ -45,13 +52,24 @@ Model:
          createdAt: Date,
          updatedAt: Date,
 
-     Episode Model:
+     Episode:
+         episodeId: string,
+         channelId: string,
          title: string,
          description: string,
          length: string,
          audioURL: string,
          publishedAt: Date,
 
+     Account:
+         accountId: int,
+         firstname: string,
+         lastname: string,
+         email: string,
+         password: string,
+         profileImageUrl: string,
+         createdAt: string,
+         updatedAt: string
 
 
 
