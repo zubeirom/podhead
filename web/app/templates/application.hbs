@@ -1,5 +1,55 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-<WelcomePage />
-{{!-- Feel free to remove this! --}}
+<div class="ui computer only grid">
+  <div class="ui top fixed borderless massive menu">
+    <div class="item"></div>
+    <a href="/" class="header item header-logo">
+      <img src="/images/logo.png" alt="logo" class="logo">
+      Podhead
+    </a>
+    <div class="item"></div>
+    <div class="item">
+      <div class="ui icon input main-input">
+        <input type="text" placeholder="Enter episode or channel" class="main-input">
+        <i class="search icon"></i>
+      </div>
+    </div>
+    <div class="right menu">
+      {{#if session.Authenticated}}
+        <a href="" class="item">
+          <i class="user icon"></i>
+        </a>
+      {{else}}
+        <a href="" class="item">
+          Login
+        </a>
+      {{/if}}
+    </div>
+  </div>
+</div>
+
+<div class="ui mobile tablet only grid">
+  <div class="ui tiny borderless top fixed menu">
+    <div class="header item">
+      <img src="/images/logo.png" alt="logo" class="logo">
+    </div>
+    <div class="item">
+      <div class="ui mini icon input main-input">
+        <input type="text" placeholder="Enter episode...">
+        <i class="search icon"></i>
+      </div>
+    </div>
+    <div class="right menu">
+      {{#if session.Authenticated}}
+        <a href="" class="item">
+          <i class="user icon"></i>
+        </a>
+      {{else}}
+        <a href="" class="item">
+          Login
+        </a>
+      {{/if}}
+    </div>
+  </div>
+</div>
+
 
 {{outlet}}

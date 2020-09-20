@@ -1,0 +1,24 @@
+.header-logo {
+  font-family: 'Montserrat', sans-serif;
+  color: red;
+}
+
+.main-input {
+  font-family: 'Poppins', sans-serif !important;
+  background-color: #f1f3f4 !important;
+  border-radius: 8px !important;
+  border: 0px solid transparent !important;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  font-size: 15px!important;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  font-size: 15px!important;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  font-size: 15px!important;
+}
+:-moz-placeholder { /* Firefox 18- */
+  font-size: 15px!important;
+}
