@@ -26,3 +26,44 @@
 .item:hover {
   background-color: transparent!important;
 }
+
+button {
+  font-family: 'Poppins', sans-serif!important;
+}
+
+body {
+  font-family: 'Poppins', sans-serif!important;
+}
+
+a {
+  font-family: 'Poppins', sans-serif!important;
+}
+
+.login {
+  font-size: 12px!important;
+  border-radius: 8px !important;
+  color: black!important;
+}
+
+.login:hover {
+  background-color: black!important;
+  color: white!important;
+}
+
+@media only screen and (min-width: 1200px) {
+  #main-container {
+    width: 1058px!important;
+  }
+}
+
+@media only screen and (max-width: 1199px) {
+  #main-container {
+    width: 870px!important;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  #main-container {
+    width: 660px!important;
+  }
+}
