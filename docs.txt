@@ -31,3 +31,28 @@ Client routes
 /${channelusername}/epid = Episode - edit or delete
 
 Design highly inspired by google Podcast
+
+Model:
+
+     Channel Model:
+         channelImage: string,
+         channelName: string,
+         channelDescription: string,
+         episodes: Episode[],
+         channelHomePage: string,
+         feedUrl: string,
+         category: Category,
+         createdAt: Date,
+         updatedAt: Date,
+
+     Episode Model:
+         title: string,
+         description: string,
+         length: string,
+         audioURL: string,
+         publishedAt: Date,
+
+
+
+
+

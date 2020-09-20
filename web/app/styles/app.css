@@ -67,3 +67,22 @@ a {
     width: 660px!important;
   }
 }
+
+@media only screen and (max-width: 320px) {
+  .main-input {
+    font-size: 10px!important;
+  }
+
+  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    font-size: 10px!important;
+  }
+  ::-moz-placeholder { /* Firefox 19+ */
+    font-size: 10px!important;
+  }
+  :-ms-input-placeholder { /* IE 10+ */
+    font-size: 10px!important;
+  }
+  :-moz-placeholder { /* Firefox 18- */
+    font-size: 10px!important;
+  }
+}
