@@ -1,6 +1,6 @@
 .header-logo {
   font-family: 'Montserrat', sans-serif;
-  color: red;
+  color: #5f6368!important;
 }
 
 .main-input {
@@ -21,4 +21,8 @@
 }
 :-moz-placeholder { /* Firefox 18- */
   font-size: 15px!important;
+}
+
+.item:hover {
+  background-color: transparent!important;
 }
