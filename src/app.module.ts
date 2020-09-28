@@ -6,8 +6,8 @@ import { EpisodeModule } from './episode/episode.module';
 import { AccountModule } from './account/account.module';
 
 @Module({
-  imports: [ChannelModule, EpisodeModule, AccountModule],
-  controllers: [AppController],
-  providers: [AppService],
+    imports: [ChannelModule, EpisodeModule, AccountModule],
+    controllers: [AppController],
+    providers: [AppService],
 })
 export class AppModule {}
