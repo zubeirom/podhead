@@ -23,6 +23,7 @@ module.exports = {
     ],
     root: true,
     rules: {
+        "no-useless-constructor": 0,
         "indent": ["error", 4],
         "import/prefer-default-export": 0,
         '@typescript-eslint/interface-name-prefix': 'off',
