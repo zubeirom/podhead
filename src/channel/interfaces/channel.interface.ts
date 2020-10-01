@@ -9,6 +9,6 @@ export interface Channel {
     readonly channelUrl: string
     readonly feedUrl: string,
     readonly category: Category,
-    readonly createdAt: Date,
-    readonly updatedAt: Date
+    createdAt: Date,
+    updatedAt: Date
 }

@@ -1,5 +1,6 @@
 export const ChannelSchema = {
     index: 'channel',
+    op_type: 'create',
     body: {
         settings: {
             analysis: {

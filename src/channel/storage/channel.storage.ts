@@ -14,21 +14,21 @@ export default class ChannelStorage implements IChannelStorage {
     }
 
     public async create(payload: Channel): Promise<void> {
-        if(!await this.checkIfIndexExists()) {
+        const exists = await this.checkIfIndexExists();
+        if(!exists) {
             await this.createIndex();
         }
-        await this.client.index({
+        const updated = {...payload, createdAt: new Date(), updatedAt: new Date()};
+        await  this.client.index({
             index: this.indexName,
             id: generateId(),
-            body: payload
-        }, (err) => {
-            if(err) throw err;
+            body: updated
         })
     }
 
     async checkIfIndexExists(): Promise<boolean> {
         const res = await this.client.indices.exists({index: this.indexName});
-        return res.statusCode === 404;
+        return res.statusCode !== 404;
     }
 
     async createIndex(): Promise<void> {
