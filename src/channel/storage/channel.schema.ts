@@ -1,6 +1,5 @@
 export const ChannelSchema = {
     index: 'channel',
-    op_type: 'create',
     body: {
         settings: {
             analysis: {
@@ -26,7 +25,6 @@ export const ChannelSchema = {
         },
         mappings: {
             properties: {
-                channelId: { type: 'integer'},
                 accountId: { type: 'integer'},
                 channelImageUrl: { type: 'text'},
                 channelName: {

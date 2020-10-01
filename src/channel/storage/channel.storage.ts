@@ -1,9 +1,11 @@
-import {Injectable} from "@nestjs/common";
+import {Injectable, Logger} from "@nestjs/common";
 import {ElasticsearchService} from "@nestjs/elasticsearch";
 import {ChannelSchema} from "./channel.schema";
 import { Channel } from "../interfaces/channel.interface";
 import IChannelStorage from "../interfaces/channel-storage.inteface";
 import {generateId} from "../../utils";
+import { ChannelDto } from "../interfaces/channel.dto";
+import {SearchResponse} from "../../types/searchResponse.interface";
 
 @Injectable()
 export default class ChannelStorage implements IChannelStorage {
@@ -13,16 +15,39 @@ export default class ChannelStorage implements IChannelStorage {
         this.indexName = "channel";
     }
 
-    public async create(payload: Channel): Promise<void> {
+    public async getChannels(accountId: number): Promise<Channel[]> {
+        try {
+            const res = await this.client.search({
+                index: this.indexName,
+                body: {
+                    query: {
+                        match: {accountId}
+                    }
+                }
+            });
+            return ChannelStorage.mapData(res.body.hits.hits);
+        } catch(e) {
+            Logger.log(e.body.error);
+            throw e;
+        }
+    }
+
+    public async createDocument(payload: ChannelDto): Promise<void> {
         const exists = await this.checkIfIndexExists();
         if(!exists) {
             await this.createIndex();
         }
-        await  this.client.index({
-            index: this.indexName,
-            id: generateId(),
-            body: payload
-        })
+        try {
+            await this.client.index({
+                index: this.indexName,
+                op_type: "create",
+                id: generateId(),
+                body: payload
+            })
+        } catch(e) {
+            Logger.log(e.body.error);
+            throw e;
+        }
     }
 
     async checkIfIndexExists(): Promise<boolean> {
@@ -31,10 +56,20 @@ export default class ChannelStorage implements IChannelStorage {
     }
 
     async createIndex(): Promise<void> {
-        await this.client.indices.create(ChannelSchema,  (err) => {
-            if (err) {
-                throw err;
+        try {
+            await this.client.indices.create(ChannelSchema)
+        } catch (e) {
+            Logger.error(e.body.error);
+        }
+    }
+
+    private static mapData(data: Array<SearchResponse>): Channel[] {
+        return data.map(channel => {
+            return {
+                id: channel._id,
+                ...channel._source
             }
         })
     }
+
 }

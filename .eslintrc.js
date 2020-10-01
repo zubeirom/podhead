@@ -23,6 +23,7 @@ module.exports = {
     ],
     root: true,
     rules: {
+        "no-underscore-dangle": 0,
         "no-useless-constructor": 0,
         "indent": ["error", 4],
         "import/prefer-default-export": 0,

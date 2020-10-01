@@ -1,5 +1,7 @@
+import { ChannelDto } from "./channel.dto";
 import { Channel } from "./channel.interface";
 
 export default interface IChannelService {
-    createChannel(body: Channel): Promise<void>,
+    getChannels(accountId: number): Promise<Channel[]>,
+    createChannel(body: ChannelDto): Promise<void>,
 }

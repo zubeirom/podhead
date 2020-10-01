@@ -1,7 +1,6 @@
-import { Category } from "src/types/category.enum";
+import {Category} from "../../types/category.enum";
 
-export interface Channel {
-    readonly id: number,
+export interface ChannelDto {
     readonly accountId: number,
     readonly channelImageUrl: string,
     readonly channelName: string,

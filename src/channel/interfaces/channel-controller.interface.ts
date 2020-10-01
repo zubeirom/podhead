@@ -1,5 +1,7 @@
+import {ChannelDto} from "./channel.dto";
 import { Channel } from "./channel.interface";
 
 export default interface IChannelController {
-    createDocument(body: Channel): Promise<void>,
+    getChannels(accountId: number): Promise<Channel[]>,
+    createDocument(body: ChannelDto): Promise<void>,
 }
