@@ -18,11 +18,10 @@ export default class ChannelStorage implements IChannelStorage {
         if(!exists) {
             await this.createIndex();
         }
-        const updated = {...payload, createdAt: new Date(), updatedAt: new Date()};
         await  this.client.index({
             index: this.indexName,
             id: generateId(),
-            body: updated
+            body: payload
         })
     }
 
