@@ -1,7 +1,7 @@
 export interface Account {
-    readonly accountId: number,
     readonly firstName: string,
     readonly lastName: string,
+    readonly username?: string,
     readonly email: string,
     readonly password: string,
     readonly profileImageUrl: string,

@@ -1,4 +1,5 @@
 import { Category } from "src/types/category.enum";
+import { Feed } from "src/feed/interfaces/feed.interface";
 
 export interface Channel {
     readonly id: number,
@@ -7,8 +8,9 @@ export interface Channel {
     readonly channelName: string,
     readonly channelDescription: string,
     readonly channelUrl: string
-    readonly feedUrl: string,
-    readonly category: Category,
+    readonly feed: Feed,
+    readonly language: string
+    readonly category: Category[],
     createdAt: Date,
     updatedAt: Date
 }

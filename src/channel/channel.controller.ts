@@ -1,8 +1,8 @@
 import {Body, Controller, Get, Post, Query, Param} from '@nestjs/common';
 import IChannelController from "./interfaces/channel-controller.interface";
-import {ChannelService} from "./channel.service";
 import {ChannelDto} from "./interfaces/channel.dto";
 import { Channel } from './interfaces/channel.interface';
+import { ChannelService } from './channel.service';
 
 @Controller('channels')
 export class ChannelController implements IChannelController{

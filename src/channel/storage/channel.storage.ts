@@ -6,12 +6,14 @@ import IChannelStorage from "../interfaces/channel-storage.inteface";
 import {generateId} from "../../utils";
 import { ChannelDto } from "../interfaces/channel.dto";
 import {SearchResponse} from "../../types/searchResponse.interface";
+import { FeedService } from '../../feed/feed.service';
+import { Account } from '../../account/storage/account.interface';
 
 @Injectable()
 export default class ChannelStorage implements IChannelStorage {
     indexName: string;
 
-    constructor(private readonly client: ElasticsearchService) {
+    constructor(private readonly client: ElasticsearchService, private readonly feedService: FeedService) {
         this.indexName = "channel";
     }
 
@@ -45,17 +47,20 @@ export default class ChannelStorage implements IChannelStorage {
         }
     }
 
-    public async createDocument(payload: ChannelDto): Promise<void> {
+    public async createDocument(payload: ChannelDto, account: Account): Promise<void> {
         const exists = await this.checkIfIndexExists();
         if(!exists) {
             await this.createIndex();
         }
         try {
+            const id = generateId();
+            const channelFeed = this.feedService.createChannelFeed(payload, id, account);
+            const channel = {...payload, feed: channelFeed}
             await this.client.index({
                 index: this.indexName,
                 op_type: "create",
-                id: generateId(),
-                body: payload
+                id: id.toString(),
+                body: channel
             })
         } catch(e) {
             Logger.log(e.body.error);

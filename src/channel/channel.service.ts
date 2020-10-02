@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import IChannelService from "./interfaces/channel-service.interface";
-import ChannelStorage from "./storage/channel.storage";
 import { ChannelDto } from "./interfaces/channel.dto";
 import {Channel} from "./interfaces/channel.interface";
+import ChannelStorage from './storage/channel.storage';
 
 @Injectable()
 export class ChannelService implements IChannelService {
