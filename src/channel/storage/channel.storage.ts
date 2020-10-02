@@ -79,6 +79,23 @@ export default class ChannelStorage implements IChannelStorage {
             await this.client.indices.create(ChannelSchema)
         } catch (e) {
             Logger.error(e.body.error);
+            throw e;
+        }
+    }
+
+    public async updateChannel(channel: Channel): Promise<Channel> {
+        try {
+            await this.client.update({
+                index: this.indexName,
+                id: channel.id.toString(),
+                body: {
+                    doc: { ...channel, updatedAt: new Date() }
+                }
+            });
+            return this.getChannel(channel.id);
+        } catch(e) {
+            Logger.error(e.body.error);
+            throw e;
         }
     }
 
@@ -94,5 +111,7 @@ export default class ChannelStorage implements IChannelStorage {
     private static mapData(data): Channel {
         return { id: data._id, ...data._source }
     }
+
+
 
 }

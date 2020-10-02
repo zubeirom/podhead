@@ -5,4 +5,5 @@ export default interface IChannelService {
     getChannels(accountId: number): Promise<Channel[]>,
     getChannel(channelId: number): Promise<Channel>,
     createChannel(body: ChannelDto): Promise<void>,
+    updateChannel(channel: Channel): Promise<Channel>
 }

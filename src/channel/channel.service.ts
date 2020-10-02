@@ -22,4 +22,8 @@ export class ChannelService implements IChannelService {
     getChannel(channelId: number): Promise<Channel> {
         return this.channelStore.getChannel(channelId);
     }
+
+    updateChannel(channel: Channel): Promise<Channel> {
+        return this.channelStore.updateChannel(channel);
+    }
 }

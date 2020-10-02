@@ -6,6 +6,7 @@ export default interface IChannelStorage {
     indexName: string,
     getChannels(accountId: number): Promise<Channel[]>,
     createDocument(payload: ChannelDto, account: Account): Promise<void>,
+    updateChannel(channel: Channel): Promise<Channel>,
     getChannel(channelId: number): Promise<Channel>
     createIndex(): Promise<void>,
     checkIfIndexExists(): Promise<boolean>

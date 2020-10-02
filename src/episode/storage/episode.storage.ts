@@ -2,7 +2,6 @@ import {Injectable, Logger} from "@nestjs/common";
 import {ElasticsearchService} from "@nestjs/elasticsearch";
 import {generateId} from "../../utils";
 import {SearchResponse} from "../../types/searchResponse.interface";
-import { FeedService } from '../../feed/feed.service';
 import { IEpisodeStorage } from '../interfaces/episode-storage.interface';
 import { Episode } from "../interfaces/episode.interface";
 import { EpisodeDto } from '../interfaces/episode.dto';
@@ -12,7 +11,7 @@ import { EpisodeSchema } from './episode.schema';
 export default class EpisodeStorage implements IEpisodeStorage {
     indexName: string;
 
-    constructor(private readonly client: ElasticsearchService, private readonly feedService: FeedService) {
+    constructor(private readonly client: ElasticsearchService) {
         this.indexName = "episode";
     }
 
@@ -46,7 +45,7 @@ export default class EpisodeStorage implements IEpisodeStorage {
         }
     }
 
-    public async createDocument(payload: EpisodeDto): Promise<void> {
+    public async createDocument(payload: EpisodeDto): Promise<Episode> {
         const exists = await this.checkIfIndexExists();
         if(!exists) {
             await this.createIndex();
@@ -59,7 +58,8 @@ export default class EpisodeStorage implements IEpisodeStorage {
                 op_type: "create",
                 id: id.toString(),
                 body
-            })
+            });
+            return this.getEpisode(id);
         } catch(e) {
             Logger.log(e.body.error);
             throw e;

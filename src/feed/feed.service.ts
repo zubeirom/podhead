@@ -1,18 +1,46 @@
 import { Injectable } from '@nestjs/common';
 import * as RSS from 'rss';
-import { ChannelDto } from 'src/channel/interfaces/channel.dto';
 import * as dotenv from 'dotenv';
+import { Episode } from 'src/episode/interfaces/episode.interface';
 import { IFeedService } from './interfaces/feed-service.interface';
 import { Feed } from './interfaces/feed.interface';
 import { Account } from '../account/interfaces/account.interface';
-import { Channel } from '../channel/interfaces/channel.interface';
 
 dotenv.config();
 
 @Injectable()
 export class FeedService implements IFeedService {
-    addEpisode(feed: Feed) {
-        return FeedService.setupRss(feed);
+    addEpisode(feed: Feed, episode: Episode, image: string): Feed {
+        return {
+            ...feed,
+            items: [...feed.items, {
+                title: episode.title,
+                description: episode.description,
+                pubDate: episode.publishedAt,
+                enclosure: {
+                    url: episode.mediaUrl,
+                    length: episode.size,
+                    type: "audio/mpeg"
+                },
+                custom_elements: [
+                    {
+                        'itunes:subtitle': episode.description,
+                        'itunes:summary': episode.description,
+                        'itunes:author': episode.author,
+                        'itunes:explicit': "No",
+                        'itunes:duration': episode.length,
+                        'itunes:episodeType': "full",
+                        'media:content': {
+                            _attr: {
+                                url: image,
+                                medium: "image"
+                            },
+                            'media:title': episode.title
+                        }
+                    }
+                ]
+            }]
+        };
     }
 
     private static setupRss(feed: Feed) {

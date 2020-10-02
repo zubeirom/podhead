@@ -14,6 +14,7 @@ dotenv.config()
         node: process.env.LOCAL_ES
     }), AccountModule],
     controllers: [ChannelController],
-    providers: [ChannelService, ChannelStorage, FeedService]
+    providers: [ChannelService, ChannelStorage, FeedService],
+    exports: [ChannelService]
 })
 export class ChannelModule {}
