@@ -4,4 +4,5 @@ export interface SearchResponse {
     _id: string,
     _score: number,
     _source: any,
+    body?: any,
 }

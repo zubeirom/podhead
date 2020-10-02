@@ -16,4 +16,8 @@ export class ChannelService implements IChannelService {
     public async getChannels(accountId: number): Promise<Channel[]> {
         return this.channelStore.getChannels(accountId);
     }
+
+    getChannel(channelId: number): Promise<Channel> {
+        return this.channelStore.getChannel(channelId);
+    }
 }

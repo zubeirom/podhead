@@ -15,6 +15,19 @@ export default class ChannelStorage implements IChannelStorage {
         this.indexName = "channel";
     }
 
+    public async getChannel(channelId: number): Promise<Channel> {
+        try {
+            const res = await this.client.get({
+                index: this.indexName,
+                id: channelId.toString()
+            });
+            return ChannelStorage.mapData(res.body);
+        } catch(e) {
+            Logger.log(e.body.error);
+            throw e;
+        }
+    }
+
     public async getChannels(accountId: number): Promise<Channel[]> {
         try {
             const res = await this.client.search({
@@ -25,7 +38,7 @@ export default class ChannelStorage implements IChannelStorage {
                     }
                 }
             });
-            return ChannelStorage.mapData(res.body.hits.hits);
+            return ChannelStorage.mapDataCollection(res.body.hits.hits);
         } catch(e) {
             Logger.log(e.body.error);
             throw e;
@@ -63,13 +76,17 @@ export default class ChannelStorage implements IChannelStorage {
         }
     }
 
-    private static mapData(data: Array<SearchResponse>): Channel[] {
+    private static mapDataCollection(data: Array<SearchResponse>): Channel[] {
         return data.map(channel => {
             return {
                 id: channel._id,
                 ...channel._source
             }
         })
+    }
+
+    private static mapData(data): Channel {
+        return { id: data._id, ...data._source }
     }
 
 }
