@@ -10,7 +10,7 @@ export class ChannelController implements IChannelController{
     constructor(private readonly channelService: ChannelService) {}
 
     @Post()
-    public async createDocument(@Body() body: ChannelDto): Promise<void> {
+    public async createChannel(@Body() body: ChannelDto): Promise<void> {
         await this.channelService.createChannel(body);
     }
 

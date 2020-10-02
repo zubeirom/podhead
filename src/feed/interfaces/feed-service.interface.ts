@@ -1,8 +1,8 @@
-import { ChannelDto } from "src/channel/interfaces/channel.dto";
 import {Feed} from "./feed.interface";
 import { Account } from '../../account/interfaces/account.interface';
+import { Channel } from '../../channel/interfaces/channel.interface';
 
 export interface IFeedService {
     addEpisode(feed: Feed),
-    createChannelFeed(channel: ChannelDto, id: number, account: Account): Feed
+    createChannelFeed(channel: Channel, account: Account): Feed
 }

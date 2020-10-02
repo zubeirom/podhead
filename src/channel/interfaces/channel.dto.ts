@@ -10,6 +10,4 @@ export interface ChannelDto {
     readonly feed?: Record<string, any>,
     readonly category: Category[],
     readonly language: Language,
-    createdAt: Date,
-    updatedAt: Date
 }

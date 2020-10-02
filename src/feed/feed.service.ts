@@ -5,6 +5,7 @@ import * as dotenv from 'dotenv';
 import { IFeedService } from './interfaces/feed-service.interface';
 import { Feed } from './interfaces/feed.interface';
 import { Account } from '../account/interfaces/account.interface';
+import { Channel } from '../channel/interfaces/channel.interface';
 
 dotenv.config();
 
@@ -18,12 +19,12 @@ export class FeedService implements IFeedService {
         return new RSS(feed);
     }
 
-    createChannelFeed(channel: ChannelDto, id: number, account: Account): Feed {
+    createChannelFeed(channel: Record<string, any>, account: Account): Feed {
         return {
             title: channel.channelName,
             description: channel.channelDescription,
-            feed_url: `${process.env.CLIENT_URL}/channel/${id}/feed.xml`,
-            site_url: `${process.env.CLIENT_URL}/channel/${id}`,
+            feed_url: `${process.env.CLIENT_URL}/channel/${channel.id}/feed.xml`,
+            site_url: `${process.env.CLIENT_URL}/channel/${channel.id}`,
             image_url: channel.channelImageUrl,
             generator: process.env.CLIENT_URL,
             language: channel.language,

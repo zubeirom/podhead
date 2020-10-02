@@ -4,5 +4,5 @@ import { Channel } from "./channel.interface";
 export default interface IChannelController {
     getChannels(accountId: number): Promise<Channel[]>,
     getChannel(channelId: number): Promise<Channel>,
-    createDocument(body: ChannelDto): Promise<void>,
+    createChannel(body: ChannelDto): Promise<void>,
 }

@@ -5,6 +5,4 @@ export interface AccountDto {
     readonly email: string,
     readonly password: string,
     readonly profileImageUrl: string,
-    readonly createdAt: Date,
-    readonly updatedAt: Date
 }

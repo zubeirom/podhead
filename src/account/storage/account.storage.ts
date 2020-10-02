@@ -1,17 +1,16 @@
 import {Injectable, Logger} from "@nestjs/common";
 import {ElasticsearchService} from "@nestjs/elasticsearch";
 import {generateId} from "../../utils";
-import { FeedService } from '../../feed/feed.service';
 import { Account } from "../interfaces/account.interface";
 import { IAccountStorage } from '../interfaces/account-storage.interface';
 import { AccountDto } from '../interfaces/account.dto';
 import { AccountSchema } from './account.schema';
 
 @Injectable()
-export default class ChannelStorage implements IAccountStorage {
+export default class AccountStorage implements IAccountStorage {
   indexName: string;
 
-  constructor(private readonly client: ElasticsearchService, private readonly feedService: FeedService) {
+  constructor(private readonly client: ElasticsearchService) {
       this.indexName = "account";
   }
 
@@ -21,7 +20,7 @@ export default class ChannelStorage implements IAccountStorage {
               index: this.indexName,
               id: accountId.toString()
           });
-          return ChannelStorage.mapData(res.body);
+          return AccountStorage.mapData(res.body);
       } catch(e) {
           Logger.log(e.body.error);
           throw e;
@@ -38,7 +37,7 @@ export default class ChannelStorage implements IAccountStorage {
               index: this.indexName,
               op_type: "create",
               id: generateId().toString(),
-              body: payload
+              body: { ...payload, createdAt: new Date(), updatedAt: new Date()}
           })
       } catch(e) {
           Logger.log(e.body.error);
@@ -60,7 +59,7 @@ export default class ChannelStorage implements IAccountStorage {
   }
 
   private static mapData(data): Account {
-      return { id: data._id, ...data._source }
+      return { id: data._id, ...data._source, password: "" }
   }
 
 }

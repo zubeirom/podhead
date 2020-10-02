@@ -54,7 +54,8 @@ export default class ChannelStorage implements IChannelStorage {
         }
         try {
             const id = generateId();
-            const channelFeed = this.feedService.createChannelFeed(payload, id, account);
+            const body = { id, ...payload, createdAt: new Date(), updatedAt: new Date()}
+            const channelFeed = this.feedService.createChannelFeed(body, account);
             const channel = {...payload, feed: channelFeed}
             await this.client.index({
                 index: this.indexName,
