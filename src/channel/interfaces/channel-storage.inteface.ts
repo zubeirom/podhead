@@ -1,6 +1,6 @@
 import {ChannelDto} from "./channel.dto";
 import { Channel } from "./channel.interface";
-import { Account } from '../../account/storage/account.interface';
+import { Account } from '../../account/interfaces/account.interface';
 
 export default interface IChannelStorage {
     indexName: string,

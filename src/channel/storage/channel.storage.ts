@@ -7,7 +7,7 @@ import {generateId} from "../../utils";
 import { ChannelDto } from "../interfaces/channel.dto";
 import {SearchResponse} from "../../types/searchResponse.interface";
 import { FeedService } from '../../feed/feed.service';
-import { Account } from '../../account/storage/account.interface';
+import { Account } from '../../account/interfaces/account.interface';
 
 @Injectable()
 export default class ChannelStorage implements IChannelStorage {

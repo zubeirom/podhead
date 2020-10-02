@@ -5,6 +5,6 @@ export interface Account {
     readonly email: string,
     readonly password: string,
     readonly profileImageUrl: string,
-    readonly createdAt: string,
-    readonly updatedAt: string
+    readonly createdAt: Date,
+    readonly updatedAt: Date
 }

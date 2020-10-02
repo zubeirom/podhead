@@ -48,7 +48,7 @@ export const ChannelSchema = {
                     }
                 },
                 channelUrl: { type: 'text' },
-                language: { type: 'string' },
+                language: { type: 'text' },
                 feed: { type: 'object' },
                 category: { type: 'array' },
                 createdAt: { type: 'date'},

@@ -4,7 +4,7 @@ import { ChannelDto } from 'src/channel/interfaces/channel.dto';
 import * as dotenv from 'dotenv';
 import { IFeedService } from './interfaces/feed-service.interface';
 import { Feed } from './interfaces/feed.interface';
-import { Account } from '../account/storage/account.interface';
+import { Account } from '../account/interfaces/account.interface';
 
 dotenv.config();
 
