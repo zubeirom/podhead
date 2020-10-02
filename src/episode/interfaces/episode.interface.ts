@@ -1,5 +1,5 @@
 export interface Episode {
-    readonly episodeId: number,
+    readonly id: number,
     readonly channelId: number,
     readonly title: string,
     readonly description: string,
