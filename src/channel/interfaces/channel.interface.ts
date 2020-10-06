@@ -4,7 +4,7 @@ import { Language } from '../../types/language.enum';
 
 export interface Channel {
     readonly id: string,
-    readonly accountId: number,
+    readonly accountId: string,
     readonly channelImageUrl?: string,
     readonly channelName: string,
     readonly channelDescription?: string,

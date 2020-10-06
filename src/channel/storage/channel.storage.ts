@@ -2,11 +2,10 @@ import {Injectable, Logger} from "@nestjs/common";
 import {ElasticsearchService} from "@nestjs/elasticsearch";
 import {ChannelSchema} from "./channel.schema";
 import { Channel } from "../interfaces/channel.interface";
-import IChannelStorage from "../interfaces/channel-storage.inteface";
+import IChannelStorage from "../interfaces/channel-storage.interface";
 import { ChannelDto } from "../interfaces/channel.dto";
 import {SearchResponse} from "../../types/searchResponse.interface";
 import { FeedService } from '../../feed/feed.service';
-import { Account } from '../../account/interfaces/account.interface';
 
 @Injectable()
 export default class ChannelStorage implements IChannelStorage {
@@ -20,7 +19,7 @@ export default class ChannelStorage implements IChannelStorage {
         try {
             const res = await this.client.get({
                 index: this.indexName,
-                id: channelId.toString()
+                id: channelId
             });
             return ChannelStorage.mapData(res.body);
         } catch(e) {
@@ -46,7 +45,7 @@ export default class ChannelStorage implements IChannelStorage {
         }
     }
 
-    public async createDocument(payload: ChannelDto, account: Account): Promise<Channel> {
+    public async createDocument(payload: ChannelDto): Promise<Channel> {
         const exists = await this.checkIfIndexExists();
         if(!exists) {
             await this.createIndex();
@@ -83,9 +82,10 @@ export default class ChannelStorage implements IChannelStorage {
         try {
             await this.client.update({
                 index: this.indexName,
-                id: channel.id.toString(),
+                id: channel.id,
                 body: {
-                    doc: { ...channel, updatedAt: new Date() }
+                    doc: { ...channel, updatedAt: new Date() },
+                    doc_as_upsert: true
                 }
             });
             return this.getChannel(channel.id);

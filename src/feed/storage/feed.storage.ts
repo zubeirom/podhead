@@ -3,6 +3,8 @@ import {ElasticsearchService} from "@nestjs/elasticsearch";
 import {IFeedStorage} from "../interfaces/feed-storage.interface";
 import { Feed } from "../interfaces/feed.interface";
 import { FeedSchema } from "./feed.schema";
+import {SearchResponse} from "../../types/searchResponse.interface";
+import {Channel} from "../../channel/interfaces/channel.interface";
 
 @Injectable()
 export class FeedStorage implements IFeedStorage {
@@ -43,11 +45,54 @@ export class FeedStorage implements IFeedStorage {
         }
     }
 
-    getFeed(channelId: number): Promise<Feed> {
-        return Promise.resolve(undefined);
+    async getFeed(channelId: string): Promise<Feed> {
+        try {
+            const res = await this.client.search({
+                index: this.indexName,
+                body: {
+                    query: {
+                        match: { channelId }
+                    }
+                }
+            });
+            return FeedStorage.mapDataCollection(res.body.hits.hits)[0];
+        } catch(e) {
+            Logger.error(e.body);
+            throw e;
+        }
     }
 
-    updateFeed(episodeId: number): Promise<Feed> {
-        return Promise.resolve(undefined);
+    async updateFeed(channelId: string, feed: Feed): Promise<void> {
+        try {
+            const currentFeed = await this.getFeed(channelId);
+            // eslint-disable-next-line no-param-reassign
+            delete feed.items;
+            await this.client.update({
+                index: this.indexName,
+                id: currentFeed.id,
+                body: {
+                    doc: {
+                        ...feed,
+                        updatedAt: new Date()
+                    }
+                }
+            })
+        } catch(e) {
+            Logger.error(e.body.error);
+            throw e;
+        }
+    }
+
+    private static mapData(data): Feed {
+        return { id: data._id, ...data._source }
+    }
+
+    private static mapDataCollection(data: Array<SearchResponse>): Feed[] {
+        return data.map(feed => {
+            return {
+                id: feed._id,
+                ...feed._source
+            }
+        })
     }
 }

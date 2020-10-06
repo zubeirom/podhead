@@ -16,6 +16,45 @@ export class FeedService implements IFeedService {
     constructor(private readonly feedStorage: FeedStorage) {
     }
 
+    mapChannelToFeed(channel: Channel, account: Account): Feed {
+        return {
+            channelId: channel.id,
+            title: channel.channelName,
+            description: channel.channelDescription,
+            feed_url: `${process.env.CLIENT_URL}/channel/${channel.id}/feed.xml`,
+            site_url: `${process.env.CLIENT_URL}/channel/${channel.id}`,
+            image_url: channel.channelImageUrl,
+            generator: process.env.CLIENT_URL,
+            language: channel.language,
+            copyright: 'Copyright 2019 All rights reserved.',
+            pubDate: channel.createdAt,
+            custom_elements: [
+                { 'itunes:type': 'episodic' },
+                { 'itunes:summary': channel.channelDescription },
+                { 'itunes:author': account.username },
+                {
+                    'itunes:owner': [
+                        { 'itunes:name': account.firstName + account.lastName },
+                        { 'itunes:email': account.email },
+                    ],
+                },
+                {
+                    'itunes:image': { _attr: { href: channel.channelImageUrl } },
+                },
+                {
+                    'itunes:category': channel.category.map(category => {
+                        return {
+                            _attr: {
+                                text: category
+                            }
+                        }
+                    })
+                },
+            ],
+            items: []
+        };
+    }
+
     addEpisode(feed: Feed, episode: Episode, image: string): Feed {
         return {
             ...feed,
@@ -54,43 +93,12 @@ export class FeedService implements IFeedService {
     }
 
     async createChannelFeed(channel: Channel, account: Account): Promise<void> {
-        const newFeed: Feed = {
-            channelId: channel.id,
-            title: channel.channelName,
-            description: channel.channelDescription,
-            feed_url: `${process.env.CLIENT_URL}/channel/${channel.id}/feed.xml`,
-            site_url: `${process.env.CLIENT_URL}/channel/${channel.id}`,
-            image_url: channel.channelImageUrl,
-            generator: process.env.CLIENT_URL,
-            language: channel.language,
-            copyright: 'Copyright 2019 All rights reserved.',
-            pubDate: channel.createdAt,
-            custom_elements: [
-                { 'itunes:type': 'episodic' },
-                { 'itunes:summary': channel.channelDescription },
-                { 'itunes:author': account.username },
-                {
-                    'itunes:owner': [
-                        { 'itunes:name': account.firstName + account.lastName },
-                        { 'itunes:email': account.email },
-                    ],
-                },
-                {
-                    'itunes:image': { _attr: { href: channel.channelImageUrl } },
-                },
-                {
-                    'itunes:category': channel.category.map(category => {
-                        return {
-                            _attr: {
-                                text: category
-                            }
-                        }
-                    })
-                },
-            ],
-            items: []
-        };
-
+        const newFeed = this.mapChannelToFeed(channel, account);
         await this.feedStorage.createDocument(newFeed);
+    }
+
+    async updateFeed(channel: Channel, account: Account): Promise<void> {
+        const newFeed = this.mapChannelToFeed(channel, account);
+        await this.feedStorage.updateFeed(channel.id, newFeed);
     }
 }

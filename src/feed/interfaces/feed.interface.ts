@@ -3,6 +3,7 @@ import { Category } from "src/types/category.enum";
 
 /* eslint-disable camelcase */
 export interface Feed {
+    id?: string,
     channelId: string,
     title: string,
     feed_url: string,

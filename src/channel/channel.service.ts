@@ -13,7 +13,7 @@ export class ChannelService implements IChannelService {
 
     public async createChannel(body: ChannelDto): Promise<Channel> {
         const account = await this.accountService.getAccount(body.accountId);
-        const channel = await this.channelStore.createDocument(body, account);
+        const channel = await this.channelStore.createDocument(body);
         await this.feedService.createChannelFeed(channel, account);
         return channel
     }
@@ -26,7 +26,10 @@ export class ChannelService implements IChannelService {
         return this.channelStore.getChannel(channelId);
     }
 
-    updateChannel(channel: Channel): Promise<Channel> {
-        return this.channelStore.updateChannel(channel);
+    public async updateChannel(channel: Channel): Promise<Channel> {
+        const updated = await this.channelStore.updateChannel(channel);
+        const account = await this.accountService.getAccount(channel.accountId);
+        await this.feedService.updateFeed(updated, account);
+        return updated
     }
 }

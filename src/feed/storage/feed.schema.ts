@@ -14,8 +14,8 @@ export const FeedSchema = {
                 language: { type: 'text'},
                 copyright: { type: 'text'},
                 pubDate: { type: 'date'},
-                custom_elements: { type: 'array' },
-                items: { type: 'array' },
+                custom_elements: { type: 'object' },
+                items: { type: 'object' },
                 createdAt: { type: 'date'},
                 updatedAt: { type: 'date'}
             }
