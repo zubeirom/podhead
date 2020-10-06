@@ -25,7 +25,7 @@ export const ChannelSchema = {
         },
         mappings: {
             properties: {
-                accountId: { type: 'integer'},
+                accountId: { type: 'text'},
                 channelImageUrl: { type: 'text'},
                 channelName: {
                     type: 'text',
@@ -49,8 +49,7 @@ export const ChannelSchema = {
                 },
                 channelUrl: { type: 'text' },
                 language: { type: 'text' },
-                feed: { type: 'object' },
-                category: { type: 'array' },
+                category: { type: 'text' },
                 createdAt: { type: 'date'},
                 updatedAt: { type: 'date'}
             }

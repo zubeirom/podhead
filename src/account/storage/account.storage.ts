@@ -1,6 +1,5 @@
 import {Injectable, Logger} from "@nestjs/common";
 import {ElasticsearchService} from "@nestjs/elasticsearch";
-import {generateId} from "../../utils";
 import { Account } from "../interfaces/account.interface";
 import { IAccountStorage } from '../interfaces/account-storage.interface';
 import { AccountDto } from '../interfaces/account.dto';
@@ -14,7 +13,7 @@ export default class AccountStorage implements IAccountStorage {
       this.indexName = "account";
   }
 
-  public async getAccount(accountId: number): Promise<Account> {
+  public async getAccount(accountId: string): Promise<Account> {
       try {
           const res = await this.client.get({
               index: this.indexName,
@@ -36,7 +35,6 @@ export default class AccountStorage implements IAccountStorage {
           await this.client.index({
               index: this.indexName,
               op_type: "create",
-              id: generateId().toString(),
               body: { ...payload, createdAt: new Date(), updatedAt: new Date()}
           })
       } catch(e) {

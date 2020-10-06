@@ -3,7 +3,7 @@ import { AccountDto } from './account.dto';
 
 export interface IAccountStorage {
   indexName: string,
-  getAccount(accountId: number): Promise<Account>,
+  getAccount(accountId: string): Promise<Account>,
   createDocument(payload: AccountDto): Promise<void>,
   createIndex(): Promise<void>,
   checkIfIndexExists(): Promise<boolean>

@@ -5,5 +5,5 @@ import { Episode } from '../../episode/interfaces/episode.interface';
 
 export interface IFeedService {
     addEpisode(feed: Feed, episode: Episode, image: string),
-    createChannelFeed(channel: Channel, account: Account): Feed
+    createChannelFeed(channel: Channel, account: Account): Promise<void>
 }

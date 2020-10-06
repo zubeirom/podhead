@@ -10,7 +10,7 @@ export class AccountService implements IAccountService {
     constructor(private readonly accountStorage: AccountStorage) {
     }
 
-    getAccount(accountId: number): Promise<Account> {
+    getAccount(accountId: string): Promise<Account> {
         return this.accountStorage.getAccount(accountId)
     }
 

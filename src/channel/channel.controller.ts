@@ -10,17 +10,17 @@ export class ChannelController implements IChannelController{
     constructor(private readonly channelService: ChannelService) {}
 
     @Post()
-    public async createChannel(@Body() body: ChannelDto): Promise<void> {
-        await this.channelService.createChannel(body);
+    public async createChannel(@Body() body: ChannelDto): Promise<Channel> {
+        return this.channelService.createChannel(body);
     }
 
     @Get(':id')
-    getChannel(@Param("id") channelId: number): Promise<Channel> {
+    getChannel(@Param("id") channelId: string): Promise<Channel> {
         return this.channelService.getChannel(channelId)
     }
 
     @Get()
-    public async getChannels(@Query("aid") accountId: number): Promise<Channel[]> {
+    public async getChannels(@Query("aid") accountId: string): Promise<Channel[]> {
         return this.channelService.getChannels(accountId);
     }
 }

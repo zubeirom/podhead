@@ -2,14 +2,20 @@ import { Injectable } from '@nestjs/common';
 import * as RSS from 'rss';
 import * as dotenv from 'dotenv';
 import { Episode } from 'src/episode/interfaces/episode.interface';
+import { Channel } from 'src/channel/interfaces/channel.interface';
 import { IFeedService } from './interfaces/feed-service.interface';
 import { Feed } from './interfaces/feed.interface';
 import { Account } from '../account/interfaces/account.interface';
+import { FeedStorage } from './storage/feed.storage';
 
 dotenv.config();
 
 @Injectable()
 export class FeedService implements IFeedService {
+
+    constructor(private readonly feedStorage: FeedStorage) {
+    }
+
     addEpisode(feed: Feed, episode: Episode, image: string): Feed {
         return {
             ...feed,
@@ -47,8 +53,9 @@ export class FeedService implements IFeedService {
         return new RSS(feed);
     }
 
-    createChannelFeed(channel: Record<string, any>, account: Account): Feed {
-        return {
+    async createChannelFeed(channel: Channel, account: Account): Promise<void> {
+        const newFeed: Feed = {
+            channelId: channel.id,
             title: channel.channelName,
             description: channel.channelDescription,
             feed_url: `${process.env.CLIENT_URL}/channel/${channel.id}/feed.xml`,
@@ -83,5 +90,7 @@ export class FeedService implements IFeedService {
             ],
             items: []
         };
+
+        await this.feedStorage.createDocument(newFeed);
     }
 }

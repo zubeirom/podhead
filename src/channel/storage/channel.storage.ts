@@ -3,7 +3,6 @@ import {ElasticsearchService} from "@nestjs/elasticsearch";
 import {ChannelSchema} from "./channel.schema";
 import { Channel } from "../interfaces/channel.interface";
 import IChannelStorage from "../interfaces/channel-storage.inteface";
-import {generateId} from "../../utils";
 import { ChannelDto } from "../interfaces/channel.dto";
 import {SearchResponse} from "../../types/searchResponse.interface";
 import { FeedService } from '../../feed/feed.service';
@@ -17,7 +16,7 @@ export default class ChannelStorage implements IChannelStorage {
         this.indexName = "channel";
     }
 
-    public async getChannel(channelId: number): Promise<Channel> {
+    public async getChannel(channelId: string): Promise<Channel> {
         try {
             const res = await this.client.get({
                 index: this.indexName,
@@ -30,7 +29,7 @@ export default class ChannelStorage implements IChannelStorage {
         }
     }
 
-    public async getChannels(accountId: number): Promise<Channel[]> {
+    public async getChannels(accountId: string): Promise<Channel[]> {
         try {
             const res = await this.client.search({
                 index: this.indexName,
@@ -47,22 +46,19 @@ export default class ChannelStorage implements IChannelStorage {
         }
     }
 
-    public async createDocument(payload: ChannelDto, account: Account): Promise<void> {
+    public async createDocument(payload: ChannelDto, account: Account): Promise<Channel> {
         const exists = await this.checkIfIndexExists();
         if(!exists) {
             await this.createIndex();
         }
         try {
-            const id = generateId();
-            const body = { id, ...payload, createdAt: new Date(), updatedAt: new Date()}
-            const channelFeed = this.feedService.createChannelFeed(body, account);
-            const channel = {...payload, feed: channelFeed}
-            await this.client.index({
+            const body = { ...payload, createdAt: new Date(), updatedAt: new Date()}
+            const res = await this.client.index({
                 index: this.indexName,
                 op_type: "create",
-                id: id.toString(),
-                body: channel
-            })
+                body
+            });
+            return {id: res.body._id, ...JSON.parse(<string>res.meta.request.params.body)}
         } catch(e) {
             Logger.log(e.body.error);
             throw e;

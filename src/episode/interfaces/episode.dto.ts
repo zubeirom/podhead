@@ -1,5 +1,5 @@
 export interface EpisodeDto {
-    readonly channelId: number,
+    readonly channelId: string,
     readonly title: string,
     readonly author: string,
     readonly description: string,

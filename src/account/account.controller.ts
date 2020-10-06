@@ -15,7 +15,7 @@ export class AccountController implements IAccountController {
     }
 
     @Get(":id")
-    getAccount(@Param("id") accountId: number): Promise<Account> {
+    getAccount(@Param("id") accountId: string): Promise<Account> {
         return this.accountService.getAccount(accountId);
     }
 }
