@@ -1,165 +1,92 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Kumar+One&display=swap");
-
-#log-header {
-  font-family: "Poppins", sans-serif;
-  color: white;
+.header-logo {
+    font-family: 'Montserrat', sans-serif;
+    color: #5f6368!important;
 }
 
-.header {
-  font-family: "Poppins", sans-serif !important;
+.main-input {
+    font-family: 'Poppins', sans-serif !important;
+    background-color: #f1f3f4 !important;
+    border-radius: 8px !important;
+    border: 0px solid transparent !important;
 }
 
-#menu-header {
-  font-family: "Kumar One", cursive !important;
-  font-size: 17px;
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    font-size: 15px!important;
+}
+::-moz-placeholder { /* Firefox 19+ */
+    font-size: 15px!important;
+}
+:-ms-input-placeholder { /* IE 10+ */
+    font-size: 15px!important;
+}
+:-moz-placeholder { /* Firefox 18- */
+    font-size: 15px!important;
 }
 
-#carddesc {
-  display: inline-block;
-  word-break: break-word;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3; /* number of lines to show */
-  -webkit-box-orient: vertical;
-}
-
-#mobmenuheader {
-  font-family: "Kumar One", cursive !important;
-  font-size: 17px;
-}
-
-#uploadButton {
-  background-color: #04053a;
-  color: white
-}
-
-.label {
-  cursor: pointer!important;
-  font-family: "Poppins", sans-serif !important;
+.item:hover {
+    background-color: transparent!important;
 }
 
 button {
-  font-family: "Poppins", sans-serif !important;
+    font-family: 'Poppins', sans-serif!important;
+}
+
+body {
+    font-family: 'Poppins', sans-serif!important;
 }
 
 a {
-  font-family: "Poppins", sans-serif !important;
+    font-family: 'Poppins', sans-serif!important;
 }
 
-label {
-  font-family: "Poppins", sans-serif !important;
+.login {
+    font-size: 12px!important;
+    border-radius: 8px !important;
+    color: black!important;
 }
 
-.fa-tag {
-  color: #FC820E
+.login:hover {
+    background-color: black!important;
+    color: white!important;
 }
 
-#loader-background {
-  background: linear-gradient(to bottom, #04053A, #0D0E8B);
+@media only screen and (min-width: 1200px) {
+    #main-container {
+        width: 1058px!important;
+    }
 }
 
-#load-header {
-  font-family: "Kumar One", cursive !important;
+@media only screen and (max-width: 1199px) {
+    #main-container {
+        width: 870px!important;
+    }
 }
 
-#loadsubheader {
-  font-size: 20px;
+@media only screen and (max-width: 991px) {
+    #main-container {
+        width: 660px!important;
+    }
 }
 
-.sk-folding-cube {
-  margin: 20px auto;
-  width: 40px;
-  height: 40px;
-  position: relative;
-  -webkit-transform: rotateZ(45deg);
-  transform: rotateZ(45deg);
+@media only screen and (max-width: 320px) {
+    .main-input {
+        font-size: 10px!important;
+    }
+
+    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+        font-size: 10px!important;
+    }
+    ::-moz-placeholder { /* Firefox 19+ */
+        font-size: 10px!important;
+    }
+    :-ms-input-placeholder { /* IE 10+ */
+        font-size: 10px!important;
+    }
+    :-moz-placeholder { /* Firefox 18- */
+        font-size: 10px!important;
+    }
 }
 
-.sk-folding-cube .sk-cube {
-  float: left;
-  width: 50%;
-  height: 50%;
-  position: relative;
-  -webkit-transform: scale(1.1);
-  -ms-transform: scale(1.1);
-  transform: scale(1.1);
-}
-.sk-folding-cube .sk-cube:before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  -webkit-animation: sk-foldCubeAngle 2.4s infinite linear both;
-  animation: sk-foldCubeAngle 2.4s infinite linear both;
-  -webkit-transform-origin: 100% 100%;
-  -ms-transform-origin: 100% 100%;
-  transform-origin: 100% 100%;
-}
-.sk-folding-cube .sk-cube2 {
-  -webkit-transform: scale(1.1) rotateZ(90deg);
-  transform: scale(1.1) rotateZ(90deg);
-}
-.sk-folding-cube .sk-cube3 {
-  -webkit-transform: scale(1.1) rotateZ(180deg);
-  transform: scale(1.1) rotateZ(180deg);
-}
-.sk-folding-cube .sk-cube4 {
-  -webkit-transform: scale(1.1) rotateZ(270deg);
-  transform: scale(1.1) rotateZ(270deg);
-}
-.sk-folding-cube .sk-cube2:before {
-  -webkit-animation-delay: 0.3s;
-  animation-delay: 0.3s;
-}
-.sk-folding-cube .sk-cube3:before {
-  -webkit-animation-delay: 0.6s;
-  animation-delay: 0.6s;
-}
-.sk-folding-cube .sk-cube4:before {
-  -webkit-animation-delay: 0.9s;
-  animation-delay: 0.9s;
-}
-@-webkit-keyframes sk-foldCubeAngle {
-  0%, 10% {
-    -webkit-transform: perspective(140px) rotateX(-180deg);
-    transform: perspective(140px) rotateX(-180deg);
-    opacity: 0;
-  } 25%, 75% {
-      -webkit-transform: perspective(140px) rotateX(0deg);
-      transform: perspective(140px) rotateX(0deg);
-      opacity: 1;
-    } 90%, 100% {
-        -webkit-transform: perspective(140px) rotateY(180deg);
-        transform: perspective(140px) rotateY(180deg);
-        opacity: 0;
-      }
-}
-
-@keyframes sk-foldCubeAngle {
-  0%, 10% {
-    -webkit-transform: perspective(140px) rotateX(-180deg);
-    transform: perspective(140px) rotateX(-180deg);
-    opacity: 0;
-  } 25%, 75% {
-      -webkit-transform: perspective(140px) rotateX(0deg);
-      transform: perspective(140px) rotateX(0deg);
-      opacity: 1;
-    } 90%, 100% {
-        -webkit-transform: perspective(140px) rotateY(180deg);
-        transform: perspective(140px) rotateY(180deg);
-        opacity: 0;
-      }
-}
-
-#indexheader {
-  font-family: "Kumar One", cursive !important;
-}
-
-#indexsubheader {
-  font-family: "Poppins", sans-serif !important;
+.poppins {
+    font-family: "Poppins", sans-serif !important;
 }

@@ -19,7 +19,7 @@
           </div>
         {{else}}
           <div class="item">
-            <a href="" class="ui tiny secondary inverted button login">
+            <a class="ui tiny secondary inverted button login" onclick="showLogin()">
               Login
             </a>
           </div>
@@ -46,7 +46,7 @@
           <i class="user icon"></i>
         </a>
       {{else}}
-        <a href="" class="item">
+        <a class="item" onclick="showLogin()">
           Login
         </a>
       {{/if}}
@@ -66,10 +66,27 @@
   {{outlet}}
 </div>
 
-<div  ></div>
+<div class="ui mini modal">
+  <div class="header poppins">Log In To Podhead</div>
+  <div class="content">
+    <div class="ui form">
+      <div class="field">
+        <div class="ui icon input">
+          <input type="text" placeholder="you@domain.com" class="ui input">
+          <i class="envelope outline icon"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui approve black button">
+      Continue
+    </div>
+  </div>
+</div>
 
 <script >
-  function showLogin {
-
+  function showLogin() {
+    $(".ui.mini.modal").modal('show');
   }
 </script>
