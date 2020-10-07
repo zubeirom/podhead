@@ -14,9 +14,9 @@ export class EpisodeService implements IEpisodeService{
 
     public async createEpisode(body: EpisodeDto): Promise<void> {
         const episode = await this.episodeStorage.createDocument(body);
-        const channel = await this.channelService.getChannel(body.channelId);
-        const newFeed = this.feedService.addEpisode(channel.feed, episode, channel.channelImageUrl);
-        await this.channelService.updateChannel({...channel, feed: newFeed})
+        const currentFeed = await this.feedService.getFeed(episode.channelId);
+        const newFeed = this.feedService.addEpisode(currentFeed, episode, episode.channelImageUrl);
+        await this.feedService.updateFeed(episode.channelId, newFeed);
     }
 
     public async getEpisodes(channelId: number): Promise<Episode[]> {

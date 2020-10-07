@@ -51,15 +51,13 @@ export default class EpisodeStorage implements IEpisodeStorage {
             await this.createIndex();
         }
         try {
-            const id = generateId();
             const body = { ...payload, createdAt: new Date(), updatedAt: new Date()}
-            await this.client.index({
+            const res = await this.client.index({
                 index: this.indexName,
                 op_type: "create",
-                id: id.toString(),
                 body
             });
-            return this.getEpisode(id);
+            return {id: res.body._id, ...JSON.parse(<string>res.meta.request.params.body)}
         } catch(e) {
             Logger.log(e.body.error);
             throw e;

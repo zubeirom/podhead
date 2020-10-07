@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Query } from '@nestjs/common';
+import {Body, Controller, Get, Param, Post, Query} from '@nestjs/common';
 import { IEpisodeController } from './interfaces/episode-controller.interface';
 import { EpisodeDto } from './interfaces/episode.dto';
 import { Episode } from './interfaces/episode.interface';
@@ -11,7 +11,7 @@ export class EpisodeController implements IEpisodeController {
     }
 
     @Post()
-    async createEpisode(body: EpisodeDto): Promise<void> {
+    async createEpisode(@Body() body: EpisodeDto): Promise<void> {
         await this.episodeService.createEpisode(body);
     }
 

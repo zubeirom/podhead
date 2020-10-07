@@ -16,7 +16,7 @@ export class FeedService implements IFeedService {
     constructor(private readonly feedStorage: FeedStorage) {
     }
 
-    mapChannelToFeed(channel: Channel, account: Account): Feed {
+    mapChannelToFeed(channel: Channel, account: Account, currentFeed?: Feed): Feed {
         return {
             channelId: channel.id,
             title: channel.channelName,
@@ -27,7 +27,7 @@ export class FeedService implements IFeedService {
             generator: process.env.CLIENT_URL,
             language: channel.language,
             copyright: 'Copyright 2019 All rights reserved.',
-            pubDate: channel.createdAt,
+            pubDate: currentFeed.createdAt,
             custom_elements: [
                 { 'itunes:type': 'episodic' },
                 { 'itunes:summary': channel.channelDescription },
@@ -51,7 +51,7 @@ export class FeedService implements IFeedService {
                     })
                 },
             ],
-            items: []
+            items: currentFeed.items
         };
     }
 
@@ -92,13 +92,16 @@ export class FeedService implements IFeedService {
         return new RSS(feed);
     }
 
+    async getFeed(channelId: string): Promise<Feed> {
+        return this.feedStorage.getFeed(channelId);
+    }
+
     async createChannelFeed(channel: Channel, account: Account): Promise<void> {
         const newFeed = this.mapChannelToFeed(channel, account);
         await this.feedStorage.createDocument(newFeed);
     }
 
-    async updateFeed(channel: Channel, account: Account): Promise<void> {
-        const newFeed = this.mapChannelToFeed(channel, account);
-        await this.feedStorage.updateFeed(channel.id, newFeed);
+    async updateFeed(channelId: string, feed: Feed): Promise<void> {
+        await this.feedStorage.updateFeed(channelId, feed);
     }
 }

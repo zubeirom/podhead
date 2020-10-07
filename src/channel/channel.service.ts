@@ -29,7 +29,8 @@ export class ChannelService implements IChannelService {
     public async updateChannel(channel: Channel): Promise<Channel> {
         const updated = await this.channelStore.updateChannel(channel);
         const account = await this.accountService.getAccount(channel.accountId);
-        await this.feedService.updateFeed(updated, account);
+        const newFeed = this.feedService.mapChannelToFeed(updated, account);
+        await this.feedService.updateFeed(updated.id, newFeed);
         return updated
     }
 }

@@ -25,7 +25,8 @@ export const EpisodeSchema = {
         },
         mappings: {
             properties: {
-                channelId: { type: 'integer'},
+                channelId: { type: 'text'},
+                channelImageUrl: { type: 'text' },
                 title: {
                     type: 'text',
                     fields: {

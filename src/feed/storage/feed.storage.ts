@@ -4,7 +4,6 @@ import {IFeedStorage} from "../interfaces/feed-storage.interface";
 import { Feed } from "../interfaces/feed.interface";
 import { FeedSchema } from "./feed.schema";
 import {SearchResponse} from "../../types/searchResponse.interface";
-import {Channel} from "../../channel/interfaces/channel.interface";
 
 @Injectable()
 export class FeedStorage implements IFeedStorage {
@@ -64,12 +63,9 @@ export class FeedStorage implements IFeedStorage {
 
     async updateFeed(channelId: string, feed: Feed): Promise<void> {
         try {
-            const currentFeed = await this.getFeed(channelId);
-            // eslint-disable-next-line no-param-reassign
-            delete feed.items;
             await this.client.update({
                 index: this.indexName,
-                id: currentFeed.id,
+                id: feed.id,
                 body: {
                     doc: {
                         ...feed,
