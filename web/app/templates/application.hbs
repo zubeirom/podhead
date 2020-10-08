@@ -14,7 +14,7 @@
       </div>
       <div class="right menu">
         {{#if session.isAuthenticated}}
-          <div class="item">
+          <div class="item" role="button" {{on "click" this.invalidate}}>
             <i class="user icon"></i>
           </div>
         {{else}}
@@ -72,16 +72,21 @@
     <div class="ui form">
       <div class="field">
         <div class="ui icon input">
-          <Input type="email" placeholder="you@domain.com" class="ui input" @value={{this.loginEmail}} />
+          <Input type="email" placeholder="you@domain.com" class="ui input" @value={{this.loginEmail}} @key-up={{this.checkEmail}} />
           <i class="envelope outline icon"></i>
         </div>
       </div>
     </div>
     <br>
     Don't have an account? <a href="mailto:zubeir.mohamed@outlook.de">Sign Up</a>
+    {{#if this.emailSent}}
+      <br>
+      <br>
+      <p style="font-size: 11px">Verification email was sent to  <b>{{this.loginEmail}}</b>, check your junk/spam folder. If nothing came you can <a role="button" {{on "click" this.login}} style="cursor: pointer">resent</a></p>
+    {{/if}}
   </div>
   <div class="actions">
-    <div class="ui black poppins button" {{on "click" this.login}}>
+    <div class="ui black {{if this.isValidEmail "" "disabled" }} poppins button" {{on "click" this.login}}>
       Continue
     </div>
   </div>
