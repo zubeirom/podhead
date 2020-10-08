@@ -41,7 +41,7 @@
       </div>
     </div>
     <div class="right menu">
-      {{#if session.isAuthenticated}}
+      {{#if this.session.isAuthenticated}}
         <a href="" class="item">
           <i class="user icon"></i>
         </a>
@@ -72,7 +72,7 @@
     <div class="ui form">
       <div class="field">
         <div class="ui icon input">
-          <Input type="text" placeholder="you@domain.com" class="ui input" @value={{this.loginEmail}} />
+          <Input type="email" placeholder="you@domain.com" class="ui input" @value={{this.loginEmail}} />
           <i class="envelope outline icon"></i>
         </div>
       </div>
@@ -81,7 +81,7 @@
     Don't have an account? <a href="mailto:zubeir.mohamed@outlook.de">Sign Up</a>
   </div>
   <div class="actions">
-    <div class="ui approve black poppins button">
+    <div class="ui black poppins button" {{on "click" this.login}}>
       Continue
     </div>
   </div>
