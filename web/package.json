@@ -17,7 +17,8 @@
     "lint:js": "eslint .",
     "start": "ember serve",
     "test": "npm-run-all lint:* test:*",
-    "test:ember": "ember test"
+    "test:ember": "ember test",
+    "deploy": "rimraf dist && rimraf .firebase && ember build --environment=production && firebase deploy"
   },
   "devDependencies": {
     "@ember/optional-features": "^2.0.0",
@@ -62,5 +63,8 @@
   },
   "ember": {
     "edition": "octane"
+  },
+  "dependencies": {
+    "rimraf": "^3.0.2"
   }
 }
