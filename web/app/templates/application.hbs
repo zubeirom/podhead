@@ -20,7 +20,7 @@
         {{else}}
           <div class="item">
             <a class="ui tiny secondary inverted button login" onclick="showLogin()">
-              Login
+              Sign In
             </a>
           </div>
         {{/if}}
@@ -47,7 +47,7 @@
         </a>
       {{else}}
         <a class="item" onclick="showLogin()">
-          Login
+          Sign In
         </a>
       {{/if}}
     </div>
@@ -67,7 +67,7 @@
 </div>
 
 <div class="ui mini modal">
-  <div class="header poppins">Log In To Podhead</div>
+  <div class="header poppins">Sign In To Podhead</div>
   <div class="content">
     <div class="ui form">
       <div class="field">
@@ -77,12 +77,16 @@
         </div>
       </div>
     </div>
-    <br>
-    Don't have an account? <a href="mailto:zubeir.mohamed@outlook.de">Sign Up</a>
     {{#if this.emailSent}}
       <br>
-      <br>
-      <p style="font-size: 11px">Verification email was sent to  <b>{{this.loginEmail}}</b>, check your junk/spam folder. If nothing came you can <a role="button" {{on "click" this.login}} style="cursor: pointer">resent</a></p>
+      <p style="font-size: 12px">Verification email was sent to  <b>{{this.loginEmail}}</b>, check your junk/spam folder. If nothing came you can <a role="button" {{on "click" this.login}} style="cursor: pointer">resent</a></p>
+    {{else}}
+      <div class="ui mini info icon message">
+        <i class="info icon"></i>
+        <div class="content">
+          <p>Podhead is working with passwordless authentication. Just add your email address and follow the link sent to you</p>
+        </div>
+      </div>
     {{/if}}
   </div>
   <div class="actions">

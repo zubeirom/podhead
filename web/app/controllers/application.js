@@ -30,18 +30,15 @@ export default class ApplicationController extends Controller {
             handleCodeInApp: true
         }
 
-        console.log("sdcs");
+        const auth = await this.firebaseApp.auth();
 
-
-        // const auth = await this.firebaseApp.auth();
-        //
-        // return auth.sendSignInLinkToEmail(loginEmail, actionCodeSettings).then(() => {
-        //     window.localStorage.setItem('emailForSignIn', loginEmail);
-        // }).catch(err => {
-        //     if(err) {
-        //         this.toast.error("Something went wrong", "Error")
-        //     }
-        // });
+        return auth.sendSignInLinkToEmail(loginEmail, actionCodeSettings).then(() => {
+            window.localStorage.setItem('emailForSignIn', loginEmail);
+        }).catch(err => {
+            if(err) {
+                this.toast.error("Something went wrong", "Error")
+            }
+        });
     }
 
     @action
