@@ -1,4 +1,5 @@
-import {Body, Controller, Get, Post, Query, Param, Put} from '@nestjs/common';
+import {Body, Controller, Get, Post, Query, Param, Put, Headers} from '@nestjs/common';
+import { validateAndGetUid } from 'src/utils';
 import IChannelController from "./interfaces/channel-controller.interface";
 import {ChannelDto} from "./interfaces/channel.dto";
 import { Channel } from './interfaces/channel.interface';
@@ -26,7 +27,9 @@ export class ChannelController implements IChannelController{
     }
 
     @Get()
-    public async getChannels(@Query("aid") accountId: string): Promise<Channel[]> {
+    public async getChannels( @Headers('authorization') authHeader: string): Promise<Channel[]> {
+        const accountId = await validateAndGetUid(authHeader);
+        console.log(accountId);
         console.log("HIT HI HIT HIT HIT HIT HIT");
         return this.channelService.getChannels(accountId);
     }

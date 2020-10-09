@@ -1,6 +1,5 @@
 import {Injectable, Logger} from "@nestjs/common";
 import {ElasticsearchService} from "@nestjs/elasticsearch";
-import {generateId} from "../../utils";
 import {SearchResponse} from "../../types/searchResponse.interface";
 import { IEpisodeStorage } from '../interfaces/episode-storage.interface';
 import { Episode } from "../interfaces/episode.interface";
