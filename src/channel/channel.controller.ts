@@ -27,6 +27,7 @@ export class ChannelController implements IChannelController{
 
     @Get()
     public async getChannels(@Query("aid") accountId: string): Promise<Channel[]> {
+        console.log("HIT HI HIT HIT HIT HIT HIT");
         return this.channelService.getChannels(accountId);
     }
 }
