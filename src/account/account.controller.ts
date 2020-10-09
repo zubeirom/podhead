@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Body, Param } from '@nestjs/common';
+import { Controller, Post, Get, Body, Param, Put } from '@nestjs/common';
 import { IAccountController } from './interfaces/account-controller.interface';
 import { AccountDto } from './interfaces/account.dto';
 import { AccountService } from './account.service';
@@ -17,5 +17,10 @@ export class AccountController implements IAccountController {
     @Get(":id")
     getAccount(@Param("id") accountId: string): Promise<Account> {
         return this.accountService.getAccount(accountId);
+    }
+
+    @Put(":id")
+    updateAccount(@Body() account: AccountDto): Promise<Account> {
+        return this.accountService.updateAccount(account);
     }
 }

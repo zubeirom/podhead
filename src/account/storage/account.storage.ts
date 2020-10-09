@@ -17,7 +17,7 @@ export default class AccountStorage implements IAccountStorage {
       try {
           const res = await this.client.get({
               index: this.indexName,
-              id: accountId.toString()
+              id: accountId
           });
           return AccountStorage.mapData(res.body);
       } catch(e) {
@@ -26,14 +26,36 @@ export default class AccountStorage implements IAccountStorage {
       }
   }
 
-  public async createDocument(payload: AccountDto): Promise<void> {
-      const exists = await this.checkIfIndexExists();
-      if(!exists) {
+  public async updateAccount(account: AccountDto): Promise<Account> {
+      try {
+          const b = await this.checkIfDocumentExists(account.id);
+          if(!b) {
+              await this.createDocument(account, true);
+          } else {
+              await this.client.update({
+                  index: this.indexName,
+                  id: account.id,
+                  body: {
+                      doc: { ...account, updatedAt: new Date() },
+                      doc_as_upsert: true
+                  }
+              });
+          }
+          return this.getAccount(account.id);
+      } catch(e) {
+          Logger.error(e.body.error);
+          throw e;
+      }
+  }
+
+  public async createDocument(payload: AccountDto, nocheck = false): Promise<void> {
+      if(!nocheck && !await this.checkIfIndexExists()) {
           await this.createIndex();
       }
       try {
           await this.client.index({
               index: this.indexName,
+              id: payload.id,
               op_type: "create",
               body: { ...payload, createdAt: new Date(), updatedAt: new Date()}
           })
@@ -57,7 +79,24 @@ export default class AccountStorage implements IAccountStorage {
   }
 
   private static mapData(data): Account {
-      return { id: data._id, ...data._source, password: "" }
+      return { id: data._id, ...data._source }
+  }
+
+  async checkIfDocumentExists(accountId: string): Promise<boolean> {
+      try {
+          const indexExists = await this.checkIfIndexExists();
+          if(indexExists) {
+              const res = await this.client.get({
+                  index: this.indexName,
+                  id: accountId
+              });
+              return res.body.found;
+          }
+          return false;
+      } catch(e) {
+          Logger.error(e.body);
+          throw e;
+      }
   }
 
 }

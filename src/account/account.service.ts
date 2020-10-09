@@ -18,4 +18,8 @@ export class AccountService implements IAccountService {
         await this.accountStorage.createDocument(body);
     }
 
+    updateAccount(body: AccountDto): Promise<Account> {
+        return this.accountStorage.updateAccount(body);
+    }
+
 }

@@ -29,7 +29,6 @@ export const AccountSchema = {
                 lastName: { type: 'text'},
                 username: { type: 'text' },
                 email: { type: 'text' },
-                password: { type: 'text' },
                 profileImageUrl: { type: 'text' },
                 createdAt: { type: 'date'},
                 updatedAt: { type: 'date'}
