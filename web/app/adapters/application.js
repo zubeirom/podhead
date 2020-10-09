@@ -1,10 +1,11 @@
 import RESTAdapter from '@ember-data/adapter/rest';
 import { computed } from '@ember/object';
+import ENV from "../config/environment";
 import { inject as service } from '@ember/service';
 
 export default class ApplicationAdapter extends RESTAdapter {
   @service session;
-
+  host = ENV.host;
   namespace = "api";
 
   // eslint-disable-next-line ember/require-computed-property-dependencies

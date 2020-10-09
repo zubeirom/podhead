@@ -11,4 +11,8 @@ export default class ChannelsRoute extends Route {
       }
   }
 
+  model() {
+      return this.store.findAll('channel');
+  }
+
 }
