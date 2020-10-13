@@ -27,7 +27,7 @@ export class FeedService implements IFeedService {
             generator: process.env.CLIENT_URL,
             language: channel.language,
             copyright: 'Copyright 2019 All rights reserved.',
-            pubDate: currentFeed.createdAt,
+            pubDate: currentFeed ? currentFeed.createdAt : new Date(),
             custom_elements: [
                 { 'itunes:type': 'episodic' },
                 { 'itunes:summary': channel.channelDescription },
@@ -51,7 +51,7 @@ export class FeedService implements IFeedService {
                     })
                 },
             ],
-            items: currentFeed.items
+            items: currentFeed ? currentFeed.items :  []
         };
     }
 

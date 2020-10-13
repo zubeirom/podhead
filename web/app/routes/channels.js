@@ -10,9 +10,4 @@ export default class ChannelsRoute extends Route {
           this.router.transitionTo("index");
       }
   }
-
-  model() {
-      return this.store.findAll('channel');
-  }
-
 }

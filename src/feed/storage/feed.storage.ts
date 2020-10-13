@@ -13,8 +13,9 @@ export class FeedStorage implements IFeedStorage {
 
     indexName: string;
 
-    checkIfIndexExists(): Promise<boolean> {
-        return Promise.resolve(false);
+    async checkIfIndexExists(): Promise<boolean> {
+        const res = await this.client.indices.exists({index: this.indexName});
+        return res.statusCode !== 404;
     }
 
     async createDocument(feed: Feed): Promise<void> {
