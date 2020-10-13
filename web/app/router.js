@@ -7,6 +7,9 @@ export default class Router extends EmberRouter {
 }
 
 Router.map(function() {
-  this.route('channels');
-  this.route('finishSignUp');
+    this.route('channels', function() {
+        this.route('info', { path: ':channel_id'});
+        this.route('new');
+    });
+    this.route('finishSignUp');
 });

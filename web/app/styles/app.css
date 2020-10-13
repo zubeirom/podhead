@@ -90,3 +90,15 @@ a {
 .poppins {
     font-family: "Poppins", sans-serif !important;
 }
+
+.smalltext {
+    font-size: 11px!important;
+}
+
+.breaks {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

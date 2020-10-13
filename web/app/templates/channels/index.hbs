@@ -1,0 +1,31 @@
+
+<br>
+<br>
+<br>
+
+<button class="ui tiny black smalltext button">
+    <i class="plus icon" style="color: white"></i>
+    Add Channel
+</button>
+<button class="ui tiny borderless inverted smalltext button" style="border: 1px solid black; color: black">
+    <i class="download icon"></i>
+    Import Channel
+</button>
+
+<div class="ui divider"></div>
+<br>
+<div class="ui raised stackable cards">
+    {{#each channels as |channel|}}
+        <LinkTo class="ui card" @route="channels.info" @model={{channel.id}}>
+            <div class="content">
+                <a class="header" href="">
+                    <img class="ui avatar image" src="https://pbcdn1.podbean.com/imglogo/image-logo/4310933/WhatsApp_Image_2019-08-28_at_18_43_37.jpeg"> {{channel.channelName}}
+                </a>
+                <div class="meta">{{moment-from-now channel.updatedAt}}</div>
+                <div class="description breaks">
+                    {{channel.channelDescription}}
+                </div>
+            </div>
+        </LinkTo>
+    {{/each}}
+</div>
