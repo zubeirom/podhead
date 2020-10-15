@@ -1,5 +1,15 @@
+<h2 class="ui header">
+    <img class="ui rounded image" src="https://vercel.com/api/www/avatar/cc8cf309139e807f098d0df361c93dcf7afb0d1d?s=204">
+    <div class="content">
+        {{#if this.account.firstName}}
+            Hi, {{this.account.firstName}} {{this.account.lastName}}
+        {{else}}
+            Hi
+        {{/if}}
+        <div class="sub header">{{this.account.username}}</div>
+    </div>
+</h2>
 
-<br>
 <br>
 <br>
 
@@ -19,11 +29,16 @@
         <LinkTo class="ui card" @route="channels.info" @model={{channel.id}}>
             <div class="content">
                 <a class="header" href="">
-                    <img class="ui avatar image" src="https://pbcdn1.podbean.com/imglogo/image-logo/4310933/WhatsApp_Image_2019-08-28_at_18_43_37.jpeg"> {{channel.channelName}}
+                    {{channel.channelName}}
                 </a>
-                <div class="meta">{{moment-from-now channel.updatedAt}}</div>
+                <div class="meta" style="font-size: 12px">Updated: {{moment-from-now channel.updatedAt}}</div>
                 <div class="description breaks">
                     {{channel.channelDescription}}
+                </div>
+            </div>
+            <div class="extra content">
+                <div class="right floated author">
+                    <img class="ui avatar image" src="https://pbcdn1.podbean.com/imglogo/image-logo/4310933/WhatsApp_Image_2019-08-28_at_18_43_37.jpeg"> {{this.account.username}}
                 </div>
             </div>
         </LinkTo>

@@ -7,6 +7,6 @@ export default class CurrentUserService extends Service {
 
     async get() {
         const res = await this.store.findAll('account');
-        console.log(res);
+        return res.get('firstObject');
     }
 }

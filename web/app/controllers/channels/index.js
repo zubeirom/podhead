@@ -10,6 +10,7 @@ export default class ChannelsIndexController extends Controller {
     @(task(function * () {
         const res = yield this.store.findAll('channel');
         set(this, "channels", res);
+        set(this, "account", yield this.currentUser.get())
     })).on("init") getChannels;
 
     channels = null
