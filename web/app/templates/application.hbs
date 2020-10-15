@@ -14,9 +14,9 @@
       </div>
       <div class="right menu">
         {{#if session.isAuthenticated}}
-          <div class="item" role="button" {{on "click" this.invalidate}}>
-            <i class="user icon"></i>
-          </div>
+          <LinkTo class="item" @route="account" >
+              <img class="ui avatar image" src={{this.account.profileImageUrl}}>
+          </LinkTo>
         {{else}}
           <div class="item">
             <a class="ui tiny secondary inverted button login" onclick="showLogin()">

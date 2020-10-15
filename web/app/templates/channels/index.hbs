@@ -1,5 +1,5 @@
 <h2 class="ui header">
-    <img class="ui rounded image" src="https://vercel.com/api/www/avatar/cc8cf309139e807f098d0df361c93dcf7afb0d1d?s=204">
+    <img class="ui rounded image" src={{this.account.profileImageUrl}}>
     <div class="content">
         {{#if this.account.firstName}}
             Hi, {{this.account.firstName}} {{this.account.lastName}}
@@ -10,7 +10,6 @@
     </div>
 </h2>
 
-<br>
 <br>
 
 <button class="ui tiny black smalltext button">

@@ -7,6 +7,10 @@ export default class CurrentUserService extends Service {
 
     async get() {
         const res = await this.store.findAll('account');
-        return res.get('firstObject');
+        const account = res.get('firstObject');
+        if(!account.profileImageUrl) {
+            account.profileImageUrl = '/images/user_icon.jpg';
+        }
+        return account;
     }
 }

@@ -8,6 +8,14 @@ export default class ApplicationController extends Controller {
     @service firebaseApp
     @service toast;
     @service session;
+    @service currentUser;
+
+    async init() {
+        super.init(...arguments)
+        set(this, "account", await this.currentUser.get());
+    }
+
+    account = null
 
     validateEmail(email) {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
