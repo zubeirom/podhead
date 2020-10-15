@@ -1,8 +1,8 @@
-import { Controller, Post, Get, Body, Param, Put } from '@nestjs/common';
-import { IAccountController } from './interfaces/account-controller.interface';
+import {Controller, Post, Get, Body, Put, Headers} from '@nestjs/common';
+import {AccountSerializer, IAccountController} from './interfaces/account-controller.interface';
 import { AccountDto } from './interfaces/account.dto';
 import { AccountService } from './account.service';
-import { Account } from './interfaces/account.interface';
+import {validateAndGetUid} from "../utils";
 
 @Controller('accounts')
 export class AccountController implements IAccountController {
@@ -14,13 +14,14 @@ export class AccountController implements IAccountController {
         return this.accountService.createAccount(body);
     }
 
-    @Get(":id")
-    getAccount(@Param("id") accountId: string): Promise<Account> {
-        return this.accountService.getAccount(accountId);
+    @Get()
+    public async getAccount(@Headers('authorization') authHeader: string): Promise<AccountSerializer> {
+        const accountId = await validateAndGetUid(authHeader);
+        return { accounts: [await this.accountService.getAccount(accountId)] };
     }
 
     @Put(":id")
-    updateAccount(@Body() account: AccountDto): Promise<Account> {
-        return this.accountService.updateAccount(account);
+    public async updateAccount(@Body() account: AccountDto): Promise<AccountSerializer> {
+        return { account: await this.accountService.updateAccount(account) };
     }
 }

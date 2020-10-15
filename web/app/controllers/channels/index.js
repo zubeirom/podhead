@@ -5,6 +5,7 @@ import { set } from '@ember/object';
 
 export default class ChannelsIndexController extends Controller {
     @service session;
+    @service currentUser;
 
     @(task(function * () {
         const res = yield this.store.findAll('channel');
@@ -12,4 +13,6 @@ export default class ChannelsIndexController extends Controller {
     })).on("init") getChannels;
 
     channels = null
+
+    account = this.currentUser.get();
 }

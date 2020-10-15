@@ -11,7 +11,7 @@ export class AccountService implements IAccountService {
     }
 
     getAccount(accountId: string): Promise<Account> {
-        return this.accountStorage.getAccount(accountId)
+        return this.accountStorage.getAccount(accountId);
     }
 
     async createAccount(body: AccountDto): Promise<void> {
