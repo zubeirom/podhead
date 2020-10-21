@@ -1,1 +1,33 @@
+<LinkTo @route="channels" style="font-size: 11px">
+    Channel >
+</LinkTo>
+
+<h2 class="ui header">
+    <img class="ui rounded image" src={{this.model.channelImageUrl}}>
+    <div class="content">
+        {{this.model.channelName}}
+        <div class="sub header">{{this.account.username}}</div>
+    </div>
+</h2>
+
+<br>
+
+<button class="ui tiny black smalltext button">
+    <i class="plus icon" style="color: white"></i>
+    Add Episode
+</button>
+<div class="ui divider"></div>
+<br>
+
+
+
+
+
+
+<script >
+    function showLogin() {
+        $(".ui.mini.modal").modal('show');
+    }
+</script>
+
 {{outlet}}

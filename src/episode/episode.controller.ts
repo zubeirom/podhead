@@ -1,7 +1,6 @@
 import {Body, Controller, Get, Param, Post, Query} from '@nestjs/common';
-import { IEpisodeController } from './interfaces/episode-controller.interface';
+import {EpisodeSerializer, IEpisodeController} from './interfaces/episode-controller.interface';
 import { EpisodeDto } from './interfaces/episode.dto';
-import { Episode } from './interfaces/episode.interface';
 import { EpisodeService } from './episode.service';
 
 @Controller('episodes')
@@ -16,12 +15,12 @@ export class EpisodeController implements IEpisodeController {
     }
 
     @Get("id")
-    getEpisode(@Param("id") episodeId: number): Promise<Episode> {
-        return this.episodeService.getEpisode(episodeId);
+    public async getEpisode(@Param("id") episodeId: number): Promise<EpisodeSerializer> {
+        return { episode: await this.episodeService.getEpisode(episodeId) };
     }
 
     @Get()
-    getEpisodes(@Query("cid") channelId: number): Promise<Episode[]> {
-        return this.episodeService.getEpisodes(channelId);
+    public async getEpisodes(@Query("cid") channelId: number): Promise<EpisodeSerializer> {
+        return { episodes: await this.episodeService.getEpisodes(channelId) };
     }
 }
