@@ -20,7 +20,7 @@
 <br>
 
 <div class="ui relaxed divided list">
-    {{#each this.episodes as |episode|}}
+    {{#each this.model.episodes as |episode|}}
         <div class="item">
             <div class="content">
                 <div class="header">{{episode.title}}</div>
@@ -32,25 +32,38 @@
 <div class="ui modal add-episode">
     <i class="close icon"></i>
     <div class="header">
-        Profile Picture
+        New Episode
     </div>
-    <div class="image content">
-        <div class="ui medium image">
-            <img src="/images/avatar/large/chris.jpg">
-        </div>
-        <div class="description">
-            <div class="ui header">We've auto-chosen a profile image for you.</div>
-            <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
-            <p>Is it okay to use this photo?</p>
+    <div class="content">
+        <div class="ui form">
+            <div class="field">
+                <label for="">Title</label>
+                <Input type="text" placeholder="#1470 - Elon Musk" class="ui input" @value={{this.title}} @key-up={{this.checkEmail}} />
+            </div>
+            <div class="field">
+                <label for="">Description</label>
+                <Textarea type="email" placeholder="Elon Musk is a business magent, entrepreneur and engineer" class="ui input" @value={{this.description}} @key-up={{this.checkEmail}} />
+            </div>
+            <div class="field">
+                <br>
+                {{#file-upload name="audio"
+                               accept=".mp3,audio/*"
+                               onfileadd=(action "uploadAudio") as |queue|}}
+                    <a role="button" class="ui {{if load "loading"}} {{if loader "disabled"}} orange button" id="uploadButton">
+                        Upload File
+                    </a>
+                    {{this.audio.name}}
+                {{/file-upload}}
+            </div>
         </div>
     </div>
     <div class="actions">
         <div class="ui black deny button">
-            Nope
+            Cancel
         </div>
-        <div class="ui positive right labeled icon button">
-            Yep, that's me
-            <i class="checkmark icon"></i>
+        <div class="ui positive right {{if this.loader "loading" ""}} labeled icon button" {{on "click" this.save}}>
+            Add Episode
+            <i class="save icon"></i>
         </div>
     </div>
 </div>
