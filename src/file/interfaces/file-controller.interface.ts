@@ -1,4 +1,5 @@
+
 export interface IFileController {
-    upload()
+    upload(file, next, res)
     stream()
 }

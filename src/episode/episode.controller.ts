@@ -10,8 +10,8 @@ export class EpisodeController implements IEpisodeController {
     }
 
     @Post()
-    async createEpisode(@Body() body: EpisodeDto): Promise<void> {
-        await this.episodeService.createEpisode(body);
+    async createEpisode(@Body() body): Promise<void> {
+        await this.episodeService.createEpisode(body.episode);
     }
 
     @Get("id")
