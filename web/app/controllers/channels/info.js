@@ -42,12 +42,21 @@ export default class ChannelsInfoController extends Controller {
     }).maxConcurrency(3)
         .enqueue() uploadToServer
 
+    checkRequirements() {
+        if(this.title && this.audio) {
+            set(this, "active", true);
+        } else {
+            set(this, "active", false);
+        }
+    }
+
     @action
     uploadAudio(audio) {
         try {
             set(this, "load", true);
             set(this, "audio", audio);
             set(this, "load", false);
+            this.checkRequirements();
         } catch (error) {
             set(this, "load", false);
             console.error(error);
@@ -67,5 +76,10 @@ export default class ChannelsInfoController extends Controller {
             set(this, "loader", false);
             console.error(error)
         }
+    }
+
+    @action
+    checkValues() {
+        this.checkRequirements();
     }
 }

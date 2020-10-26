@@ -50,7 +50,7 @@ export default class EpisodeStorage implements IEpisodeStorage {
             await this.createIndex();
         }
         try {
-            const body = { ...payload, createdAt: new Date(), updatedAt: new Date()}
+            const body = { ...payload, publishedAt: new Date(), updatedAt: new Date()}
             const res = await this.client.index({
                 index: this.indexName,
                 op_type: "create",

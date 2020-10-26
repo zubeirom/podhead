@@ -23,7 +23,11 @@
     {{#each this.model.episodes as |episode|}}
         <div class="item">
             <div class="content">
-                <div class="header">{{episode.title}}</div>
+                <div class="header" style="font-size: 15px!Important">{{episode.title}}</div>
+                <p style="font-size: 11px">{{moment-from-now episode.publishedAt}}</p>
+                <div class="description breaks">
+                    {{episode.description}}
+                </div>
             </div>
         </div>
     {{/each}}
@@ -38,11 +42,11 @@
         <div class="ui form">
             <div class="field">
                 <label for="">Title</label>
-                <Input type="text" placeholder="#1470 - Elon Musk" class="ui input" @value={{this.title}} @key-up={{this.checkEmail}} />
+                <Input type="text" placeholder="#1470 - Elon Musk" class="ui input" @value={{this.title}} @key-up={{this.checkValues}} />
             </div>
             <div class="field">
                 <label for="">Description</label>
-                <Textarea type="email" placeholder="Elon Musk is a business magent, entrepreneur and engineer" class="ui input" @value={{this.description}} @key-up={{this.checkEmail}} />
+                <Textarea type="email" placeholder="Elon Musk is a business magent, entrepreneur and engineer" class="ui input" @value={{this.description}} @key-up={{this.checkValues}} />
             </div>
             <div class="field">
                 <br>
@@ -61,7 +65,7 @@
         <div class="ui black deny button">
             Cancel
         </div>
-        <div class="ui positive right {{if this.loader "loading" ""}} labeled icon button" {{on "click" this.save}}>
+        <div class="ui positive right {{if active "" "disabled"}} labeled icon button" {{on "click" this.save}}>
             Add Episode
             <i class="save icon"></i>
         </div>
