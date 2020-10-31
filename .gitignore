@@ -37,3 +37,4 @@ lerna-debug.log*
 
 firebase-config.json
 podhead-server.pem
+podhead-server.ppk
